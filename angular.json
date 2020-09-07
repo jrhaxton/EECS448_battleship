@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "battleship-project"
+    }
+  },
+  "defaultProject": "battleship-project",
+  "cli": {
+    "analytics": false
+  }
 }
