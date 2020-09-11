@@ -1,0 +1,20 @@
+#screen{
+    display: flex;
+    width: 100%;
+}
+#screen div#player1{
+    margin: 2% 10% 0% 10%;
+}
+
+#screen div#player2{
+    margin: 2% 3% 0% 10%;
+}
+
+#player2 table tr td,#player1 table tr td{
+    width: 40px;
+    height: 25px;
+    /*border-left: 1px solid;*/
+}
+#player2 table,#player1 table{
+    border: 2px solid;
+}

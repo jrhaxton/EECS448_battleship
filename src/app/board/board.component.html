@@ -1,14 +1,25 @@
-<p>First board is:</p>
-<table>
-    <tr *ngFor="let i of board1">
-        <td *ngFor="let j of i">{{j}}</td>
-    </tr>
-</table>
-<p>
-    Second board is:
-</p>
-<table>
-    <tr *ngFor="let i of board2">
-        <td *ngFor="let j of i">{{j}}</td>
-    </tr>
-</table>
+
+<div id="screen">
+    <div id="player1">
+        <h1>Player 1</h1>
+        <table ><!--[style.opacity]= "user1 = player ? 0.5 : 1">-->
+            <tr *ngFor="let row of board1; let i = index">
+                <td *ngFor="let col of row; let j = index" (change)="win(board2)" (click) = "attack1(i,j)">{{col}}</td>
+            </tr>
+        </table>
+    </div>
+
+    <div id="player2">
+        <h1>Player 2</h1>
+        <table class="oppoent">
+            <tr *ngFor="let row of board2; let i = index">
+                <td *ngFor="let col of row; let j = index" (change)="win(board1)" (click) = "attack2(i,j)">{{col}}</td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<div *ngIf="gameOver == true" >
+    <h1>Hoooraaay!</h1>
+    <h2>{{winner}} has wond the game!</h2>
+</div>
