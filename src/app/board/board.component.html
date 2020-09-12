@@ -1,14 +1,79 @@
-<p>First board is:</p>
-<table>
-    <tr *ngFor="let i of board1">
-        <td *ngFor="let j of i">{{j}}</td>
-    </tr>
-</table>
-<p>
-    Second board is:
-</p>
-<table>
-    <tr *ngFor="let i of board2">
-        <td *ngFor="let j of i">{{j}}</td>
-    </tr>
-</table>
+<head>
+    <title>Battleship</title>
+</head>
+
+<h1>Battleship</h1>
+
+<p>How many ships do you want to have? (From 1 to 5):</p>
+<input type="text" name="" id="" [value]="title" [disabled]="isDisabled" (keyup.enter)="title=$event.target.value">
+<button (click)="onClick()">send</button>
+<!-- <h2>{{ title }}</h2> -->
+
+<p>Where do you want to place your first ship? (row, col):</p>
+<input type="text" name="" id="" [value]="title" [disabled]="isDisabled" (keyup.enter)="title=$event.target.value">
+<button (click)="onClick()">send</button>
+
+<p>Where do you want to place the head of your second ship? (If exist)(row, col):</p>
+<input type="text" name="" id="" [value]="title" [disabled]="isDisabled" (keyup.enter)="title=$event.target.value">
+<button (click)="onClick()">send</button>
+
+<p>Where do you want to place the tail of your second ship? (If exist)(row, col):</p>
+<input type="text" name="" id="" [value]="title" [disabled]="isDisabled" (keyup.enter)="title=$event.target.value">
+<button (click)="onClick()">send</button>
+
+<p>Where do you want to place the head of your third ship? (If exist)(row, col):</p>
+<input type="text" name="" id="" [value]="title" [disabled]="isDisabled" (keyup.enter)="title=$event.target.value">
+<button (click)="onClick()">send</button>
+
+<p>Where do you want to place the tail of your third ship? (If exist)(row, col):</p>
+<input type="text" name="" id="" [value]="title" [disabled]="isDisabled" (keyup.enter)="title=$event.target.value">
+<button (click)="onClick()">send</button>
+
+<p>Where do you want to place the head of your fourth ship? (If exist)(row, col):</p>
+<input type="text" name="" id="" [value]="title" [disabled]="isDisabled" (keyup.enter)="title=$event.target.value">
+<button (click)="onClick()">send</button>
+
+<p>Where do you want to place the tail of your fourth ship? (If exist)(row, col):</p>
+<input type="text" name="" id="" [value]="title" [disabled]="isDisabled" (keyup.enter)="title=$event.target.value">
+<button (click)="onClick()">send</button>
+
+<p>Where do you want to place the head of your fifth ship? (If exist)(row, col):</p>
+<input type="text" name="" id="" [value]="title" [disabled]="isDisabled" (keyup.enter)="title=$event.target.value">
+<button (click)="onClick()">send</button>
+
+<p>Where do you want to place the tail of your fifth ship? (If exist)(row, col):</p>
+<input type="text" name="" id="" [value]="title" [disabled]="isDisabled" (keyup.enter)="title=$event.target.value">
+<button (click)="onClick()">send</button>
+
+<p>Where do you want to fire? (row, col):</p>
+<input type="text" name="" id="" [value]="title" [disabled]="isDisabled" (keyup.enter)="title=$event.target.value">
+<button (click)="onClick()">send</button>
+
+<h4>(hit or miss)</h4>
+<!-- <input type="text" [(ngModel)]="title2">
+<h3>{{ title2 }}</h3> -->
+
+<div id="screen">
+    <div id="player1">
+        <h1>Player 1</h1>
+        <table ><!--[style.opacity]= "user1 = player ? 0.5 : 1">-->
+            <tr *ngFor="let row of board1; let i = index">
+                <td *ngFor="let col of row; let j = index" (change)="win(board2)" (click) = "attack1(i,j)">{{col}}</td>
+            </tr>
+        </table>
+    </div>
+
+    <div id="player2">
+        <h1>Player 2</h1>
+        <table class="oppoent">
+            <tr *ngFor="let row of board2; let i = index">
+                <td *ngFor="let col of row; let j = index" (change)="win(board1)" (click) = "attack2(i,j)">{{col}}</td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<div *ngIf="gameOver == true" >
+    <h1>Hoooraaay!</h1>
+    <h2>{{winner}} has wond the game!</h2>
+</div>
