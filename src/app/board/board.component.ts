@@ -30,7 +30,7 @@ export class BoardComponent implements OnInit {
   validNum: boolean; // Used to verify if the number of ship is valid
   player1: string = 'player 1';
   player2: string = 'player 2';
-  
+  flip: boolean=false;
   player1_turn: boolean = true;
   player2_turn: boolean = false;
   play: boolean = false;
@@ -42,7 +42,15 @@ export class BoardComponent implements OnInit {
     $('#main-screen').toggle();
    }
      
-  attack1(row,col){
+   attack1(row,col){
+    if(this.board2_C[row][col] == 'X' || this.board2_C[row][col] == '0')
+    {
+      this.flip =false;
+    }
+    else
+    {
+      this.flip=true;
+    }
     if(this.board2[row][col] != 'X' && row != 0 && col != 0){
       if(this.board2[row][col] == 's'){
         this.board2_C[row][col] = 'X';
@@ -52,28 +60,56 @@ export class BoardComponent implements OnInit {
         this.board2_C[row][col] = '0';
       }
     }
-    if (this.win(this.board2)){
+
+    this.gameOver = this.win(this.board2);
+    if (this.gameOver){
       this.winner = "Player 1";
     }
-    this.flipView();
-    this.player = 2;
+    if(this.flip==true)
+    {
+       this.flipView(); 
+    }
+    else
+    {
+     this.attack1(row,col);
+    }
+    this.player=2;
+    this.flip=false;
   }
 
   attack2(row,col){
+    if(this.board1_C[row][col]=='X' || this.board1_C[row][col]== '0')
+    {
+      this.flip =false;
+    }
+    else
+    {
+      this.flip=true;
+    }
     if(this.board1[row][col] != 'X' && row != 0 && col != 0){
       if(this.board1[row][col] == 's'){
         this.board1_C[row][col] = 'X';
         this.board1[row][col] = 'X';
       }
       else{
-        this.board1_C[row][col] = '0';
+        this.board1_C[row][col] = 0;
       }
     }
-    if (this.win(this.board1)){
+
+    this.gameOver = this.win(this.board1);
+    if (this.gameOver){
       this.winner = "Player 2";
     }
-    this.flipView();
-    this.player = 1;
+    if(this.flip==true)
+    {
+       this.flipView(); 
+    }
+    else
+    {
+      this.attack2(row,col);
+    }
+    this.player=1;
+    this.flip=false;
   }
 
   playGame() // Used to control the user's interaction as they play the game
