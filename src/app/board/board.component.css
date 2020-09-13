@@ -18,3 +18,19 @@
 #player2 table,#player1 table, .player table{
     border: 2px solid;
 }
+
+body {
+    background-color: darkblue;
+  }
+  
+  h1 {
+    color: white;
+  }
+  
+  p {
+    color: lightblue;
+  }
+  
+  .text-red{
+      color: red;
+  }
