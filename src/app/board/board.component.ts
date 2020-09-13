@@ -78,9 +78,7 @@ export class BoardComponent implements OnInit {
         this.board2_C[row][col] = '0';
       }
     }
-
-    this.gameOver = this.win(this.board2);
-    if (this.gameOver){
+    if (this.win(this.board2)){
       this.winner = "Player 1";
     }
     if(this.flip==true)
@@ -125,9 +123,7 @@ export class BoardComponent implements OnInit {
         this.board1_C[row][col] = 0;
       }
     }
-
-    this.gameOver = this.win(this.board1);
-    if (this.gameOver){
+    if (this.win(this.board1)){
       this.winner = "Player 2";
     }
     if(this.flip==true)
