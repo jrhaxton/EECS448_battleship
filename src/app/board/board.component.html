@@ -3,54 +3,95 @@
 </head>
 
 <h1>Battleship</h1>
+<div *ngIf="gotShips != true">
+    <p>How many ships do you want to have? (From 1 to 5):</p>
+    <input (keyup)=numShips($event)  #numberShips id="">
+    <button (click)="enterShips()" (click)="numberShips.value = ''">send</button>
+</div>
 
-<p>How many ships do you want to have? (From 1 to 5):</p>
-<input type="text" name="" id="" [value]="title" [disabled]="isDisabled" (keyup.enter)="title=$event.target.value">
-<button (click)="onClick()">send</button>
-<!-- <h2>{{ title }}</h2> -->
+<div *ngIf="player ==1 && gotShips == true && p1Ships > 0">
+    <h2>Player one it's your turn to place ships</h2>
+    <div *ngIf="p1Ships == 5">
+        <p>Where do you want to place your ship of size five? (col, row, H or V) Ex: A,1,H:</p>
+        <input (keyup)= "getCoords($event)" id="">
+        <button (click)="placeShips(col,row,dir,board1,p1Ships)">send</button>
+    </div>
 
-<p>Where do you want to place your first ship? (row, col):</p>
-<input type="text" name="" id="" [value]="title" [disabled]="isDisabled" (keyup.enter)="title=$event.target.value">
-<button (click)="onClick()">send</button>
+    <div *ngIf="p1Ships == 4">
+        <p>Where do you want to place your ship of size four? (col, row, H or V) Ex: A,1,H:</p>
+        <input (keyup)= "getCoords($event)" id="">
+        <button (click)="placeShips(col,row,dir,board1,p1Ships)">send</button>
+    </div>
 
-<p>Where do you want to place the head of your second ship? (If exist)(row, col):</p>
-<input type="text" name="" id="" [value]="title" [disabled]="isDisabled" (keyup.enter)="title=$event.target.value">
-<button (click)="onClick()">send</button>
+    <div *ngIf="p1Ships == 3">
+        <p>Where do you want to place your ship of size three? (col, row, H or V) Ex: A,1,H:</p>
+        <input (keyup)= "getCoords($event)" id="">
+        <button (click)="placeShips(col,row,dir,board1,p1Ships)">send</button>
+    </div>
 
-<p>Where do you want to place the tail of your second ship? (If exist)(row, col):</p>
-<input type="text" name="" id="" [value]="title" [disabled]="isDisabled" (keyup.enter)="title=$event.target.value">
-<button (click)="onClick()">send</button>
+    <div *ngIf="p1Ships == 2">
+        <p>Where do you want to place your ship of size two? (col, row, H or V) Ex: A,1,H:</p>
+        <input (keyup)= "getCoords($event)" id="">
+        <button (click)="placeShips(col,row,dir,board1,p1Ships)">send</button>
+    </div>
 
-<p>Where do you want to place the head of your third ship? (If exist)(row, col):</p>
-<input type="text" name="" id="" [value]="title" [disabled]="isDisabled" (keyup.enter)="title=$event.target.value">
-<button (click)="onClick()">send</button>
+    <div *ngIf="p1Ships == 1">
+        <p>Where do you want to place your ship of size one? (col, row, H or V) Ex: A,1,H:</p>
+        <input (keyup)= "getCoords($event)" id="">
+        <button (click)="placeShips(col,row,dir,board1,p1Ships)">send</button>
+    </div>
+    <table >
+        <tr *ngFor="let row of board1; let i = index">
+            <td *ngFor="let col of row; let j = index">{{col}}</td>
+        </tr>
+    </table>
+</div>
 
-<p>Where do you want to place the tail of your third ship? (If exist)(row, col):</p>
-<input type="text" name="" id="" [value]="title" [disabled]="isDisabled" (keyup.enter)="title=$event.target.value">
-<button (click)="onClick()">send</button>
+<div *ngIf="player ==2 && gotShips == true && p2Ships > 0">
+    <h2>Player two it's your turn to place ships</h2>
+    <div *ngIf="p2Ships == 5">
+        <p>Where do you want to place your ship of size five? (col, row, H or V) Ex: A,1,H:</p>
+        <input (keyup)= "getCoords($event)" id="">
+        <button (click)="placeShips(col,row,dir,board2,p2Ships)">send</button>
+    </div>
 
-<p>Where do you want to place the head of your fourth ship? (If exist)(row, col):</p>
-<input type="text" name="" id="" [value]="title" [disabled]="isDisabled" (keyup.enter)="title=$event.target.value">
-<button (click)="onClick()">send</button>
+    <div *ngIf="p2Ships == 4">
+        <p>Where do you want to place your ship of size four? (col, row, H or V) Ex: A,1,H:</p>
+        <input (keyup)= "getCoords($event)" id="">
+        <button (click)="placeShips(col,row,dir,board2,p2Ships)">send</button>
+    </div>
 
-<p>Where do you want to place the tail of your fourth ship? (If exist)(row, col):</p>
-<input type="text" name="" id="" [value]="title" [disabled]="isDisabled" (keyup.enter)="title=$event.target.value">
-<button (click)="onClick()">send</button>
+    <div *ngIf="p2Ships == 3">
+        <p>Where do you want to place your ship of size three? (col, row, H or V) Ex: A,1,H:</p>
+        <input (keyup)= "getCoords($event)" id="">
+        <button (click)="placeShips(col,row,dir,board2,p2Ships)">send</button>
+    </div>
 
-<p>Where do you want to place the head of your fifth ship? (If exist)(row, col):</p>
-<input type="text" name="" id="" [value]="title" [disabled]="isDisabled" (keyup.enter)="title=$event.target.value">
-<button (click)="onClick()">send</button>
+    <div *ngIf="p2Ships == 2">
+        <p>Where do you want to place your ship of size two? (col, row, H or V) Ex: A,1,H:</p>
+        <input (keyup)= "getCoords($event)" id="">
+        <button (click)="placeShips(col,row,dir,board2,p2Ships)">send</button>
+    </div>
 
-<p>Where do you want to place the tail of your fifth ship? (If exist)(row, col):</p>
-<input type="text" name="" id="" [value]="title" [disabled]="isDisabled" (keyup.enter)="title=$event.target.value">
-<button (click)="onClick()">send</button>
+    <div *ngIf="p2Ships == 1">
+        <p>Where do you want to place your ship of size one? (col, row, H or V) Ex: A,1,H:</p>
+        <input (keyup)= "getCoords($event)" id="">
+        <button (click)="placeShips(col,row,dir,board2,p2Ships)">send</button>
+    </div>
+    <table >
+        <tr *ngFor="let row of board2; let i = index">
+            <td *ngFor="let col of row; let j = index">{{col}}</td>
+        </tr>
+    </table>
+</div>
 
+<!--
 <p>Where do you want to fire? (row, col):</p>
 <input type="text" name="" id="" [value]="title" [disabled]="isDisabled" (keyup.enter)="title=$event.target.value">
 <button (click)="onClick()">send</button>
 
 <h4>(hit or miss)</h4>
-<!-- <input type="text" [(ngModel)]="title2">
+<input type="text" [(ngModel)]="title2">
 <h3>{{ title2 }}</h3> -->
 
 <div id="screen">
@@ -75,5 +116,5 @@
 
 <div *ngIf="gameOver == true" >
     <h1>Hoooraaay!</h1>
-    <h2>{{winner}} has wond the game!</h2>
+    <h2>{{winner}} has won the game!</h2>
 </div>
