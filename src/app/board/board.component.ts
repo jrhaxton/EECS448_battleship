@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { table } from 'console';
+//import { table } from 'console';
 import { AppComponent } from '../app.component';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-board',
@@ -15,6 +16,8 @@ export class BoardComponent implements OnInit {
   winner: string; // Used to show which player won
   board1: any; // Player one's board
   board2: any; // Player two's board
+  board1_C: any;
+  board2_C: any;
   ships: number = 0; // Number of ships
   p1Ships: number; // Number of ships player one has to place and used to know the length of the ship
   p2Ships: number; // Number of ships player two has to place and used to know the length of the ship
@@ -25,63 +28,58 @@ export class BoardComponent implements OnInit {
   dir: string; // Used to know if the ship is horizontal or vertical
   validCoords: boolean; // Used to verify that a coordinate is valid
   validNum: boolean; // Used to verify if the number of ship is valid
-  constructor() { }
+  player1: string = 'player 1';
+  player2: string = 'player 2';
+  
+  player1_turn: boolean = true;
+  player2_turn: boolean = false;
+  play: boolean = false;
 
+  constructor() { }
+  flipView(){
+    
+    $('#screen').toggle();
+    $('#main-screen').toggle();
+   }
+     
   attack1(row,col){
     if(this.board2[row][col] != 'X' && row != 0 && col != 0){
       if(this.board2[row][col] == 's'){
+        this.board2_C[row][col] = 'X';
         this.board2[row][col] = 'X';
+      }
+      else{
+        this.board2_C[row][col] = '0';
       }
     }
     if (this.win(this.board2)){
       this.winner = "Player 1";
     }
+    this.flipView();
+    this.player = 2;
   }
 
   attack2(row,col){
     if(this.board1[row][col] != 'X' && row != 0 && col != 0){
       if(this.board1[row][col] == 's'){
+        this.board1_C[row][col] = 'X';
         this.board1[row][col] = 'X';
+      }
+      else{
+        this.board1_C[row][col] = '0';
       }
     }
     if (this.win(this.board1)){
       this.winner = "Player 2";
     }
+    this.flipView();
+    this.player = 1;
   }
 
   playGame() // Used to control the user's interaction as they play the game
   {
-    if(this.player == 1)
-    {
-      //...
-      //shoot(); //function for player one to shoot at player two's board
-      //...
-      if(this.win(this.board2)==true)
-      {
-        //Output the game is over and player one won
-        return;
-      }
-      else
-      {
-        this.player = 2;
-      }
-    }
-    else
-    {
-      //...
-      //shoot();//function for player two to shoot at player one's board
-      //...
-      if(this.win(this.board1)==true)
-      {
-        //Output the game is over and player two won
-        return;
-      }
-      else
-      {
-        this.player = 1;
-      }
-    }
-  this.playGame();
+   this.play = true;
+   this.gameOver = false; 
   }
 
   win(board) //Determines whether or not a player has won the game
@@ -294,29 +292,55 @@ export class BoardComponent implements OnInit {
   ngOnInit(): void {
     this.player= 1;
     this.gotShips = false;
+    $("#screen").hide();
     this.board1=[
       [' ','A','B','C','D','E','F','G','H','I'],
-      ['1','~','~','~','~','s','~','~','~','~'],
-      ['2','~','~','~','~','s','~','~','~','~'],
-      ['3','~','~','s','~','s','~','~','~','~'],
-      ['4','s','~','~','~','~','~','~','~','~'],
-      ['5','s','s','s','~','~','~','~','s','~'],
-      ['6','~','~','~','~','~','~','~','s','~'],
-      ['7','~','~','~','s','~','~','~','s','~'],
-      ['8','~','s','~','s','~','~','~','~','~'],
-      ['9','~','~','~','~','s','s','s','s','~'],
+      ['1','~','~','~','~','~','~','~','~','~'],
+      ['2','~','~','~','~','~','~','~','~','~'],
+      ['3','~','~','~','~','~','~','~','~','~'],
+      ['4','~','~','~','~','~','~','~','~','~'],
+      ['5','~','~','~','~','~','~','~','~','~'],
+      ['6','~','~','~','~','~','~','~','~','~'],
+      ['7','~','~','~','~','~','~','~','~','~'],
+      ['8','~','~','~','~','~','~','~','~','~'],
+      ['9','~','~','~','~','~','~','~','~','~'],
     ];
     this.board2=[
       [' ','A','B','C','D','E','F','G','H','I'],
-      ['1','~','s','~','~','~','s','s','s','~'],
-      ['2','~','~','~','~','~','~','~','s','~'],
-      ['3','s','~','~','~','~','~','~','s','~'],
-      ['4','s','~','s','s','s','~','~','~','~'],
+      ['1','~','~','~','~','~','~','~','~','~'],
+      ['2','~','~','~','~','~','~','~','~','~'],
+      ['3','~','~','~','~','~','~','~','~','~'],
+      ['4','~','~','~','~','~','~','~','~','~'],
       ['5','~','~','~','~','~','~','~','~','~'],
-      ['6','~','s','~','~','~','~','~','s','~'],
-      ['7','~','s','~','~','s','~','~','s','~'],
-      ['8','~','s','~','~','s','~','~','s','~'],
-      ['9','~','s','~','~','s','~','~','~','s'],
+      ['6','~','~','~','~','~','~','~','~','~'],
+      ['7','~','~','~','~','~','~','~','~','~'],
+      ['8','~','~','~','~','~','~','~','~','~'],
+      ['9','~','~','~','~','~','~','~','~','~'],
+    ];
+
+    this.board1_C=[
+      [' ','A','B','C','D','E','F','G','H','I'],
+      ['1','~','~','~','~','~','~','~','~','~'],
+      ['2','~','~','~','~','~','~','~','~','~'],
+      ['3','~','~','~','~','~','~','~','~','~'],
+      ['4','~','~','~','~','~','~','~','~','~'],
+      ['5','~','~','~','~','~','~','~','~','~'],
+      ['6','~','~','~','~','~','~','~','~','~'],
+      ['7','~','~','~','~','~','~','~','~','~'],
+      ['8','~','~','~','~','~','~','~','~','~'],
+      ['9','~','~','~','~','~','~','~','~','~'],
+    ];
+    this.board2_C=[
+      [' ','A','B','C','D','E','F','G','H','I'],
+      ['1','~','~','~','~','~','~','~','~','~'],
+      ['2','~','~','~','~','~','~','~','~','~'],
+      ['3','~','~','~','~','~','~','~','~','~'],
+      ['4','~','~','~','~','~','~','~','~','~'],
+      ['5','~','~','~','~','~','~','~','~','~'],
+      ['6','~','~','~','~','~','~','~','~','~'],
+      ['7','~','~','~','~','~','~','~','~','~'],
+      ['8','~','~','~','~','~','~','~','~','~'],
+      ['9','~','~','~','~','~','~','~','~','~'],
     ];
   }
   
