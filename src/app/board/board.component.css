@@ -1,0 +1,21 @@
+#screen, #main-screen{
+    display: flex;
+    width: 100%;
+    cursor:grab;
+}
+#main-screen div#player1, #screen div.player{
+    margin: 2% 10% 0% 10%;
+}
+
+#main-screen div#player2, #screen div.player{
+    margin: 2% 3% 0% 10%;
+}
+
+#player2 table tr td,#player1 table tr td, .player table tr td{
+    width: 40px;
+    height: 25px;
+    /*border-left: 1px solid;*/
+}
+#player2 table,#player1 table, .player table{
+    border: 2px solid;
+}

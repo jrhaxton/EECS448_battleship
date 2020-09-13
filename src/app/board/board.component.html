@@ -1,14 +1,142 @@
-<p>First board is:</p>
-<table>
-    <tr *ngFor="let i of board1">
-        <td *ngFor="let j of i">{{j}}</td>
-    </tr>
-</table>
-<p>
-    Second board is:
-</p>
-<table>
-    <tr *ngFor="let i of board2">
-        <td *ngFor="let j of i">{{j}}</td>
-    </tr>
-</table>
+<h1>Battleship</h1>
+
+<!--Ship Number-->
+<div *ngIf="gotShips != true">
+    <p>How many ships do you want to have? (From 1 to 5):</p>
+    <input (keyup)=numShips($event)  #numberShips id="">
+    <button (click)="enterShips()" (click)="numberShips.value = ''">send</button>
+</div>
+
+<!--Player one's ship placements-->
+<div *ngIf="player ==1 && gotShips == true && p1Ships > 0">
+    <h2>Player one it's your turn to place ships</h2>
+    <div *ngIf="p1Ships == 5">
+        <p>Where do you want to place your ship of size five? (col, row, H or V) Ex: A,1,H:</p>
+        <input (keyup)= "getCoords($event)" id="">
+        <button (click)="placeShips(col,row,dir,board1,p1Ships)">send</button>
+    </div>
+
+    <div *ngIf="p1Ships == 4">
+        <p>Where do you want to place your ship of size four? (col, row, H or V) Ex: A,1,H:</p>
+        <input (keyup)= "getCoords($event)" id="">
+        <button (click)="placeShips(col,row,dir,board1,p1Ships)">send</button>
+    </div>
+
+    <div *ngIf="p1Ships == 3">
+        <p>Where do you want to place your ship of size three? (col, row, H or V) Ex: A,1,H:</p>
+        <input (keyup)= "getCoords($event)" id="">
+        <button (click)="placeShips(col,row,dir,board1,p1Ships)">send</button>
+    </div>
+
+    <div *ngIf="p1Ships == 2">
+        <p>Where do you want to place your ship of size two? (col, row, H or V) Ex: A,1,H:</p>
+        <input (keyup)= "getCoords($event)" id="">
+        <button (click)="placeShips(col,row,dir,board1,p1Ships)">send</button>
+    </div>
+
+    <div *ngIf="p1Ships == 1">
+        <p>Where do you want to place your ship of size one? (col, row, H or V) Ex: A,1,H:</p>
+        <input (keyup)= "getCoords($event)" id="">
+        <button (click)="placeShips(col,row,dir,board1,p1Ships)">send</button>
+    </div>
+    <table >
+        <tr *ngFor="let row of board1; let i = index">
+            <td *ngFor="let col of row; let j = index">{{col}}</td>
+        </tr>
+    </table>
+</div>
+
+<!--Playe two's ship placements-->
+<div *ngIf="player ==2 && gotShips == true && p2Ships > 0">
+    <h2>Player two it's your turn to place ships</h2>
+    <div *ngIf="p2Ships == 5">
+        <p>Where do you want to place your ship of size five? (col, row, H or V) Ex: A,1,H:</p>
+        <input (keyup)= "getCoords($event)" id="">
+        <button (click)="placeShips(col,row,dir,board2,p2Ships)">send</button>
+    </div>
+
+    <div *ngIf="p2Ships == 4">
+        <p>Where do you want to place your ship of size four? (col, row, H or V) Ex: A,1,H:</p>
+        <input (keyup)= "getCoords($event)" id="">
+        <button (click)="placeShips(col,row,dir,board2,p2Ships)">send</button>
+    </div>
+
+    <div *ngIf="p2Ships == 3">
+        <p>Where do you want to place your ship of size three? (col, row, H or V) Ex: A,1,H:</p>
+        <input (keyup)= "getCoords($event)" id="">
+        <button (click)="placeShips(col,row,dir,board2,p2Ships)">send</button>
+    </div>
+
+    <div *ngIf="p2Ships == 2">
+        <p>Where do you want to place your ship of size two? (col, row, H or V) Ex: A,1,H:</p>
+        <input (keyup)= "getCoords($event)" id="">
+        <button (click)="placeShips(col,row,dir,board2,p2Ships)">send</button>
+    </div>
+
+    <div *ngIf="p2Ships == 1">
+        <p>Where do you want to place your ship of size one? (col, row, H or V) Ex: A,1,H:</p>
+        <input (keyup)= "getCoords($event)" id="">
+        <button (click)="placeShips(col,row,dir,board2,p2Ships)">send</button>
+    </div>
+    <table >
+        <tr *ngFor="let row of board2; let i = index">
+            <td *ngFor="let col of row; let j = index">{{col}}</td>
+        </tr>
+    </table>
+</div>
+
+<div *ngIf="gotShips == true && p1Ships == 0 && p2Ships == 0 && play != true">
+    <h2>All ships have been placed! Press the button to begin playing</h2>
+    <button (click)="playGame()">Play</button>
+</div>
+
+<div *ngIf="play == true && player == 1 && gameOver == false">
+    Player One's turn to shot
+    <div id="main-screen">
+        <div id="player1">
+            <h1>Your board</h1>
+            <table  id="p1-base">
+                <tr *ngFor="let row of board1 ">
+                    <td *ngFor="let col of row">{{col}}</td>
+                </tr>
+            </table>
+        
+        </div>
+        
+        <div id="player2">
+            <h1>Player two's board</h1>
+            <table id="p2-realtime">
+                <tr *ngFor="let row of board2_C; let i = index">
+                    <td *ngFor="let col of row; let j = index" (change)="win(board2)" (click) = "attack1(i,j)">{{col}}</td>
+                </tr>
+            </table>
+        
+        </div>
+    </div>
+</div>
+<div *ngIf="play == true && player == 2 && gameOver == false">
+    Player two's turn to shot
+    <div id="screen">
+        <div class="player">
+            <h1>Your board</h1>
+            <table  id="p2-base">
+                <tr *ngFor="let row of board2 ">
+                    <td *ngFor="let col of row">{{col}}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="player">
+            <h1>Player one's board</h1>
+            <table id="p1-realtime">
+                <tr *ngFor="let row of board1_C; let i = index">
+                    <td *ngFor="let col of row; let j = index" (change)="win(board1)" (click) = "attack2(i,j)">{{col}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+    <div *ngIf="gameOver == true">
+        <h1>Hoooraaay!</h1>
+        <h2>{{winner}} has won the game!</h2>
+    </div>
