@@ -1,1 +1,63 @@
 <router-outlet></router-outlet>
+<html>
+    <head>
+        <title>Battleship</title>
+    </head>
+
+    <h1>Battleship</h1>
+
+    <table>
+        <tr *ngFor="let i of board1">
+            <td *ngFor="let j of i">{{j}}</td>
+        </tr>
+    </table>
+
+    <p>How many ships do you want to have? (From 1 to 5):</p>
+    <input type="text" name="" id="" [value]="title" [disabled]="isDisabled" (keyup.enter)="title=$event.target.value">
+    <button (click)="onClick()">send</button>
+    <!-- <h2>{{ title }}</h2> -->
+
+    <p>Where do you want to place your first ship? (row, col):</p>
+    <input type="text" name="" id="" [value]="title" [disabled]="isDisabled" (keyup.enter)="title=$event.target.value">
+    <button (click)="onClick()">send</button>
+
+    <p>Where do you want to place the head of your second ship? (If exist)(row, col):</p>
+    <input type="text" name="" id="" [value]="title" [disabled]="isDisabled" (keyup.enter)="title=$event.target.value">
+    <button (click)="onClick()">send</button>
+
+    <p>Where do you want to place the tail of your second ship? (If exist)(row, col):</p>
+    <input type="text" name="" id="" [value]="title" [disabled]="isDisabled" (keyup.enter)="title=$event.target.value">
+    <button (click)="onClick()">send</button>
+
+    <p>Where do you want to place the head of your third ship? (If exist)(row, col):</p>
+    <input type="text" name="" id="" [value]="title" [disabled]="isDisabled" (keyup.enter)="title=$event.target.value">
+    <button (click)="onClick()">send</button>
+
+    <p>Where do you want to place the tail of your third ship? (If exist)(row, col):</p>
+    <input type="text" name="" id="" [value]="title" [disabled]="isDisabled" (keyup.enter)="title=$event.target.value">
+    <button (click)="onClick()">send</button>
+
+    <p>Where do you want to place the head of your fourth ship? (If exist)(row, col):</p>
+    <input type="text" name="" id="" [value]="title" [disabled]="isDisabled" (keyup.enter)="title=$event.target.value">
+    <button (click)="onClick()">send</button>
+
+    <p>Where do you want to place the tail of your fourth ship? (If exist)(row, col):</p>
+    <input type="text" name="" id="" [value]="title" [disabled]="isDisabled" (keyup.enter)="title=$event.target.value">
+    <button (click)="onClick()">send</button>
+
+    <p>Where do you want to place the head of your fifth ship? (If exist)(row, col):</p>
+    <input type="text" name="" id="" [value]="title" [disabled]="isDisabled" (keyup.enter)="title=$event.target.value">
+    <button (click)="onClick()">send</button>
+
+    <p>Where do you want to place the tail of your fifth ship? (If exist)(row, col):</p>
+    <input type="text" name="" id="" [value]="title" [disabled]="isDisabled" (keyup.enter)="title=$event.target.value">
+    <button (click)="onClick()">send</button>
+
+    <p>Where do you want to fire? (row, col):</p>
+    <input type="text" name="" id="" [value]="title" [disabled]="isDisabled" (keyup.enter)="title=$event.target.value">
+    <button (click)="onClick()">send</button>
+    
+    <h4>(hit or miss)</h4>
+    <!-- <input type="text" [(ngModel)]="title2">
+    <h3>{{ title2 }}</h3> -->
+</html>
