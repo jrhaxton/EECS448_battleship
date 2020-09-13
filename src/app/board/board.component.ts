@@ -20,12 +20,15 @@ export class BoardComponent implements OnInit {
   player2_turn: boolean = false;
 
   constructor() { }
-  flipView(turn: number){
-    console.log(turn);
-    $("#p1-base").toggle();
+  flipView(){
+    
+    $('#screen').toggle();
+    $('#main-screen').toggle();
+    //console.log(turn);
+    /*$("#p1-base").toggle();
     $("#p2-base").toggle();
     $("#p1-realtime").toggle();
-    $("#p2-realtime").toggle();
+    $("#p2-realtime").toggle();*/
    }
      
   attack1(row,col){
@@ -38,7 +41,6 @@ export class BoardComponent implements OnInit {
         this.board2_C[row][col] = '0';
         //toshow = this.board1
         //console.log('calling flip');
-        //this.flipView(2);
         //this.player1_turn = false;
         //this.player2_turn = true;
       }
@@ -48,6 +50,7 @@ export class BoardComponent implements OnInit {
     if (this.gameOver){
       this.winner = "Player 1";
     }
+    this.flipView();
   }
 
   attack2(row,col){
@@ -59,7 +62,7 @@ export class BoardComponent implements OnInit {
       else{
         //console.log('calling flip');
         this.board1_C[row][col] = '0';
-        //this.flipView(2);
+        
 
         //this.player1_turn = false;
         //this.player2_turn = true;
@@ -70,6 +73,7 @@ export class BoardComponent implements OnInit {
     if (this.gameOver){
       this.winner = "Player 2";
     }
+    this.flipView();
   }
 
   win(board: string[][]){
@@ -81,7 +85,6 @@ export class BoardComponent implements OnInit {
       }
     }
     return true;
-
   }
 
   board1: any;
@@ -93,7 +96,7 @@ export class BoardComponent implements OnInit {
   ngOnInit(): void {
     //this.player2 = "player 2";
     //this.player1 = "player 1";
-    //$("#p2-base").hide();
+    $("#screen").hide();
    // $("#p1-realtime").hide();
     this.board1=[
       [' ','A','B','C','D','E','F','G','H','I'],
