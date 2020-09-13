@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { table } from 'console';
+//import { table } from 'console';
 import { AppComponent } from '../app.component';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-board',
@@ -12,16 +13,38 @@ export class BoardComponent implements OnInit {
   total_player: number = 2;
   gameOver: boolean;
   winner: string;
+  player1: string = 'player 1';
+  player2: string = 'player 2';
+  
+  player1_turn: boolean = true;
+  player2_turn: boolean = false;
 
   constructor() { }
-
+  flipView(turn: number){
+    console.log(turn);
+    $("#p1-base").toggle();
+    $("#p2-base").toggle();
+    $("#p1-realtime").toggle();
+    $("#p2-realtime").toggle();
+   }
+     
   attack1(row,col){
     if(this.board2[row][col] != 'X' && row != 0 && col != 0){
       if(this.board2[row][col] == 's'){
+        this.board2_C[row][col] = 'X';
         this.board2[row][col] = 'X';
       }
+      else{
+        this.board2_C[row][col] = '0';
+        //toshow = this.board1
+        //console.log('calling flip');
+        //this.flipView(2);
+        //this.player1_turn = false;
+        //this.player2_turn = true;
+      }
     }
-    this.gameOver = this.win(this.board1);
+
+    this.gameOver = this.win(this.board2);
     if (this.gameOver){
       this.winner = "Player 1";
     }
@@ -30,20 +53,28 @@ export class BoardComponent implements OnInit {
   attack2(row,col){
     if(this.board1[row][col] != 'X' && row != 0 && col != 0){
       if(this.board1[row][col] == 's'){
+        this.board1_C[row][col] = 'X';
         this.board1[row][col] = 'X';
       }
+      else{
+        //console.log('calling flip');
+        this.board1_C[row][col] = '0';
+        //this.flipView(2);
+
+        //this.player1_turn = false;
+        //this.player2_turn = true;
+      }
     }
+
     this.gameOver = this.win(this.board1);
     if (this.gameOver){
       this.winner = "Player 2";
     }
   }
 
-
   win(board: string[][]){
-
-    for (var i = 0; i < 9; i++){
-      for (var j = 0; j < 9; j++){
+    for (var i = 1; i <= 9; i++){
+      for (var j = 1; j <= 9; j++){
         if(board[i][j] == 's'){
           return false;
         }
@@ -55,7 +86,15 @@ export class BoardComponent implements OnInit {
 
   board1: any;
   board2: any;
+  board1_C: any;
+  board2_C: any;
+
+ 
   ngOnInit(): void {
+    //this.player2 = "player 2";
+    //this.player1 = "player 1";
+    //$("#p2-base").hide();
+   // $("#p1-realtime").hide();
     this.board1=[
       [' ','A','B','C','D','E','F','G','H','I'],
       ['1','~','~','~','~','s','~','~','~','~'],
@@ -79,6 +118,31 @@ export class BoardComponent implements OnInit {
       ['7','~','s','~','~','s','~','~','s','~'],
       ['8','~','s','~','~','s','~','~','s','~'],
       ['9','~','s','~','~','s','~','~','~','s'],
+    ];
+
+    this.board1_C=[
+      [' ','A','B','C','D','E','F','G','H','I'],
+      ['1','~','~','~','~','~','~','~','~','~'],
+      ['2','~','~','~','~','~','~','~','~','~'],
+      ['3','~','~','~','~','~','~','~','~','~'],
+      ['4','~','~','~','~','~','~','~','~','~'],
+      ['5','~','~','~','~','~','~','~','~','~'],
+      ['6','~','~','~','~','~','~','~','~','~'],
+      ['7','~','~','~','~','~','~','~','~','~'],
+      ['8','~','~','~','~','~','~','~','~','~'],
+      ['9','~','~','~','~','~','~','~','~','~'],
+    ];
+    this.board2_C=[
+      [' ','A','B','C','D','E','F','G','H','I'],
+      ['1','~','~','~','~','~','~','~','~','~'],
+      ['2','~','~','~','~','~','~','~','~','~'],
+      ['3','~','~','~','~','~','~','~','~','~'],
+      ['4','~','~','~','~','~','~','~','~','~'],
+      ['5','~','~','~','~','~','~','~','~','~'],
+      ['6','~','~','~','~','~','~','~','~','~'],
+      ['7','~','~','~','~','~','~','~','~','~'],
+      ['8','~','~','~','~','~','~','~','~','~'],
+      ['9','~','~','~','~','~','~','~','~','~'],
     ];
   }
   
