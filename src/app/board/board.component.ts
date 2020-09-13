@@ -16,6 +16,7 @@ export class BoardComponent implements OnInit {
   winner: string; // Used to show which player won
   board1: any; // Player one's board
   board2: any; // Player two's board
+  // We make copies of each board. The copies are presented to the opponent as a map to attack.
   board1_C: any;
   board2_C: any;
   ships: number = 0; // Number of ships
@@ -35,21 +36,53 @@ export class BoardComponent implements OnInit {
   player2_turn: boolean = false;
   play: boolean = false;
 
+  /** Constructor: Creates and initilaze the class 
+ * @pre None
+ * @post Component class created with all its dependencies
+ * @param None 
+ * @throws None
+ * @return None
+ */
   constructor() { }
+
+  /** flipView: Switch views as a form of swtiching turns
+ * Called after each play by a user to give the turn to the
+ * other user
+ * @pre None
+ * @post One view is hidden and another shown
+ * @param None
+ * @throws None
+ * @return None
+ */
   flipView(){
     
     $('#screen').toggle();
     $('#main-screen').toggle();
    }
-     
+
+  /** Attack1: - Takes care of the attacks from player 1
+ *           - Checks if Player 1 won, after each turn
+ * @pre A Board[][] is created and ready for use.
+ * @post Any hits/misses are marked and the turn is
+ *       given to player 2. 
+ * @param row: Row index where player 1 want to hit
+ *        col: Column index where player 1 want to hit
+ *      these coordinates are used to mark the boards for
+ *      hits/misses
+ * @throws None
+ * @return None
+ */
   attack1(row,col){
-    if(this.board2[row][col] != 'X' && row != 0 && col != 0){
-      if(this.board2[row][col] == 's'){
-        this.board2_C[row][col] = 'X';
-        this.board2[row][col] = 'X';
-      }
-      else{
-        this.board2_C[row][col] = '0';
+    if(this.player ==1)
+    {
+      if(this.board2[row][col] != 'X' && row != 0 && col != 0){
+        if(this.board2[row][col] == 's'){
+          this.board2_C[row][col] = 'X';
+          this.board2[row][col] = 'X';
+        }
+        else{
+          this.board2_C[row][col] = '0';
+        }
       }
     }
     if (this.win(this.board2)){
@@ -59,6 +92,18 @@ export class BoardComponent implements OnInit {
     this.player = 2;
   }
 
+  /** Attack2: - Takes care of the attacks from player 2
+ *           - Checks if Player 2 won, after each turn
+ * @pre A Board[][] is created and ready for use.
+ * @post Any hits/misses are marked and the turn is
+ *       given to player 1. 
+ * @param row: Row index where player 2 want to hit
+ *        col: Column index where player 2 want to hit
+ *      these coordinates are used to mark the boards for
+ *      hits/misses
+ * @throws None
+ * @return None
+ */
   attack2(row,col){
     if(this.board1[row][col] != 'X' && row != 0 && col != 0){
       if(this.board1[row][col] == 's'){
@@ -75,9 +120,8 @@ export class BoardComponent implements OnInit {
     this.flipView();
     this.player = 1;
   }
-  
-  /*
-  * playGame: Used to let the program know that all the ships have been placed and the users can now attack each other's board
+
+  /** playGame: Used to let the program know that all the ships have been placed and the users can now attack each other's board
   * @pre The program has had both board updated with their ships
   * @post Lets the application know its time for the players to be able to mark the boards
   * @param None
@@ -90,6 +134,14 @@ export class BoardComponent implements OnInit {
    this.gameOver = false; 
   }
 
+  /** win: Check if all ships of a player are hit
+ * @pre A Board[][] is created and ready for use.
+ * @post None
+ * @param board the board to check
+ * @throws None
+ * @return - true: if all ships of the board are down
+ *         - false: if any ship is left not hit
+ */
   win(board) //Determines whether or not a player has won the game
   {
     this.gameOver = true
@@ -107,8 +159,7 @@ export class BoardComponent implements OnInit {
   return(this.gameOver);
   }
 
-  /*
-  * numShips: Used to take in the number of ships and helps keep track of the length/number of ships that players need to place
+  /** numShips: Used to take in the number of ships and helps keep track of the length/number of ships that players need to place
   * @pre There is an input from the user that contains a string with the number of ships for both players
   * @post Establishes the values for the ship, p1Ships, and p2Ships as that number
   * @param {any} event The input string from the user for the number of ships
@@ -129,8 +180,7 @@ export class BoardComponent implements OnInit {
     }
   }
 
-  /*
-  * enterShips: Used to let the program know that the number of ships has been entered whent the button is clicked
+  /** enterShips: Used to let the program know that the number of ships has been entered whent the button is clicked
   * @pre There is a number of ships the application needs to progress
   * @post Makes sure that there are ships to be placed
   * @param None
@@ -148,8 +198,7 @@ export class BoardComponent implements OnInit {
     }
   }
 
-  /*
-  * getCoords: Used to take in the user's placement for their ships and convert them into useable values
+  /** getCoords: Used to take in the user's placement for their ships and convert them into useable values
   * @pre There is an input from the user that contains a string for the placement of their ship
   * @post Takes in the string and separates the string into useable values fro the application
   * @param {any} event The input string from the user for the coordinates of the ships head and orientation
@@ -169,8 +218,7 @@ export class BoardComponent implements OnInit {
     }
   }
 
-  /*
-  * placeShips: Used to place the ships on the board
+  /** placeShips: Used to place the ships on the board
   * @pre There is a coordinate the user wants to place their ship at
   * @post Takes the coordinate and checks to see if the ship can be placed there and if it can the ship is placed there
   * @param {number} col The column number for the head of the ship
@@ -222,8 +270,7 @@ export class BoardComponent implements OnInit {
     }
   }
 
-  /* 
-  * checkPlacements: Used to verify if a ship can be placed given the coordinates
+  /** checkPlacements: Used to verify if a ship can be placed given the coordinates
   * @pre There is a coordinate the user wants to place their ship at
   * @post Takes the coordinate and checks to see if the ship can be placed there
   * @param {number} row The row number for the head of the ship
@@ -254,8 +301,7 @@ export class BoardComponent implements OnInit {
     return(valid);
   }
 
-  /*
-  * convertLetter: Used to convert the column letter to a numerical value
+  /** convertLetter: Used to convert the column letter to a numerical value
   * @pre There is a value passed as a string that may contain a letter or not a letter
   * @post Converts valid letters into a numeric value
   * @param {string} letter The letter corresponding to a col of the board
@@ -311,8 +357,7 @@ export class BoardComponent implements OnInit {
     return (num);
   }
 
-  /* 
-  * updateBoards: Used to update the boards after ship placement
+  /** updateBoards: Used to update the boards after ship placement
   * @pre There exists a board/2D array that needs to reflect a change in its contents
   * @post Forces the boards to update/refresh
   * @param None
@@ -325,6 +370,16 @@ export class BoardComponent implements OnInit {
     this.board2= [...this.board2];
   }
 
+   /** ngOnInit: lifecycle hook of the component called after
+  *    the constructor to initialize the component. Here we create
+  *    the two boards and their copies. The turn is given to player 1,
+  *    so his screen is the only shown. 
+   * @pre 4 boards created and initilized. Only one screen show to the user
+   * @post post condition
+   * @param None
+   * @throws None
+   * @return None
+   */
   ngOnInit(): void {
     this.player= 1;
     this.gotShips = false;
