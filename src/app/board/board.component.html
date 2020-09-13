@@ -3,12 +3,15 @@
 </head>
 
 <h1>Battleship</h1>
+
+<!--Ship Number-->
 <div *ngIf="gotShips != true">
     <p>How many ships do you want to have? (From 1 to 5):</p>
     <input (keyup)=numShips($event)  #numberShips id="">
     <button (click)="enterShips()" (click)="numberShips.value = ''">send</button>
 </div>
 
+<!--Player one's ship placements-->
 <div *ngIf="player ==1 && gotShips == true && p1Ships > 0">
     <h2>Player one it's your turn to place ships</h2>
     <div *ngIf="p1Ships == 5">
@@ -47,6 +50,7 @@
     </table>
 </div>
 
+<!--Playe two's ship placements-->
 <div *ngIf="player ==2 && gotShips == true && p2Ships > 0">
     <h2>Player two it's your turn to place ships</h2>
     <div *ngIf="p2Ships == 5">

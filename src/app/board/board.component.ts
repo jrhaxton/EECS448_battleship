@@ -8,19 +8,19 @@ import { Component, OnInit } from '@angular/core';
 export class BoardComponent implements OnInit {
 
   Board_Size: number = 9;
-  player: number;
-  gameOver: boolean;
-  winner: string;
-  board1: any;
-  board2: any;
-  ships: number = 0;
-  p1Ships: number;
-  p2Ships: number;
-  gotShips: boolean;
-  coords: string;
-  col: number;
-  row: number;
-  dir: string;
+  player: number; // Used to know which player is controlling
+  gameOver: boolean; // Used to know when the game is over
+  winner: string; // Used to show which player won
+  board1: any; // Player one's board
+  board2: any; // Player two's board
+  ships: number = 0; // Number of ships
+  p1Ships: number; // Number of ships player one has to place and used to know the length of the ship
+  p2Ships: number; // Number of ships player two has to place and used to know the length of the ship
+  gotShips: boolean; // Used to know if the number of ships has been given
+  coords: string; // Used to convert the user's ship coordinates into useable values
+  col: number; // Used to select column to place ship
+  row: number; // Used to select row to place ship
+  dir: string; // Used to know if the ship is horizontal or vertical
 
   constructor() { }
 
@@ -98,6 +98,7 @@ win(board) //Determines whether or not a player has won the game
 return(this.gameOver);
 }
 
+//Function used to take in the number of ships and helps keep track of the length/number of ships that players need to place
 numShips(event:any)
 {
  this.ships = event.target.value;
@@ -105,11 +106,13 @@ numShips(event:any)
  this.p2Ships = this.ships
 }
 
+//Function used to let the program know that the number of ships has been entered whent the button is clicked
 enterShips()
 {
  this.gotShips = true;
 }
 
+//Function used to take in the user's placement for their ships and convert them into useable values
 getCoords(event:any)
 {
   this.coords = event.target.value.split(",", 3);
@@ -118,6 +121,7 @@ getCoords(event:any)
   this.dir = this.coords[2];
 }
 
+//Function used to place the ships on the board
 placeShips(col, row, direction:string, board, length:number)
 {
   if (this.checkPlacements(row, col, direction, board, length)) 
@@ -153,6 +157,7 @@ placeShips(col, row, direction:string, board, length:number)
   }
 }
 
+// Function used to verify if a ship can be placed given the coordinates
 checkPlacements(row, col:number, dir:string, board, length:number)
 {
   let valid = true;
@@ -173,6 +178,7 @@ checkPlacements(row, col:number, dir:string, board, length:number)
   return(valid);
 }
 
+// Function used to convert the column letter to a numerical value
 convertLetter(letter:string)
 {
   let num = 0;
@@ -218,6 +224,7 @@ convertLetter(letter:string)
   return (num);
 }
 
+// Function used to update the boards after ship placement
 updateBoards()
 {
   this.board1= [...this.board1];
