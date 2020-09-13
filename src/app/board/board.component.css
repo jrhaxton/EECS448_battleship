@@ -19,18 +19,14 @@
     border: 2px solid;
 }
 
-body {
-    background-color: darkblue;
-  }
-  
-  h1 {
+h1 {
     color: white;
-  }
-  
-  p {
+}
+
+p {
     color: lightblue;
-  }
-  
-  .text-red{
-      color: red;
-  }
+}
+
+.text-red{
+    color: red;
+}

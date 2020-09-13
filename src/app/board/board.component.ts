@@ -35,6 +35,8 @@ export class BoardComponent implements OnInit {
   player1_turn: boolean = true;
   player2_turn: boolean = false;
   play: boolean = false;
+  isMessage: boolean = false;
+  message: string;
 
   /** Constructor: Creates and initilaze the class 
  * @pre None
@@ -73,9 +75,11 @@ export class BoardComponent implements OnInit {
       if(this.board2[row][col] == 's'){
         this.board2_C[row][col] = 'X';
         this.board2[row][col] = 'X';
+        this.message = "Player one hit";
       }
       else{
         this.board2_C[row][col] = '0';
+        this.message = "Player one missed";
       }
     }
     if (this.win(this.board2)){
@@ -83,7 +87,13 @@ export class BoardComponent implements OnInit {
     }
     if(this.flip==true)
     {
-       this.flipView(); 
+       this.flipView();
+       this.isMessage = true; 
+       setTimeout(()=>
+       {
+         this.isMessage = false;}
+         , 5000
+       );
     }
     else
     {
@@ -118,9 +128,11 @@ export class BoardComponent implements OnInit {
       if(this.board1[row][col] == 's'){
         this.board1_C[row][col] = 'X';
         this.board1[row][col] = 'X';
+        this.message = "Player two hit";
       }
       else{
         this.board1_C[row][col] = 0;
+        this.message = "Player one missed";
       }
     }
     if (this.win(this.board1)){
@@ -129,6 +141,12 @@ export class BoardComponent implements OnInit {
     if(this.flip==true)
     {
        this.flipView(); 
+       this.isMessage = true; 
+       setTimeout(()=>
+       {
+         this.isMessage = false;}
+         , 5000
+       );
     }
     else
     {
