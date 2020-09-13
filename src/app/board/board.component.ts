@@ -24,11 +24,6 @@ export class BoardComponent implements OnInit {
     
     $('#screen').toggle();
     $('#main-screen').toggle();
-    //console.log(turn);
-    /*$("#p1-base").toggle();
-    $("#p2-base").toggle();
-    $("#p1-realtime").toggle();
-    $("#p2-realtime").toggle();*/
    }
      
   attack1(row,col){
@@ -39,10 +34,6 @@ export class BoardComponent implements OnInit {
       }
       else{
         this.board2_C[row][col] = '0';
-        //toshow = this.board1
-        //console.log('calling flip');
-        //this.player1_turn = false;
-        //this.player2_turn = true;
       }
     }
 
@@ -60,12 +51,7 @@ export class BoardComponent implements OnInit {
         this.board1[row][col] = 'X';
       }
       else{
-        //console.log('calling flip');
         this.board1_C[row][col] = '0';
-        
-
-        //this.player1_turn = false;
-        //this.player2_turn = true;
       }
     }
 
@@ -94,10 +80,7 @@ export class BoardComponent implements OnInit {
 
  
   ngOnInit(): void {
-    //this.player2 = "player 2";
-    //this.player1 = "player 1";
     $("#screen").hide();
-   // $("#p1-realtime").hide();
     this.board1=[
       [' ','A','B','C','D','E','F','G','H','I'],
       ['1','~','~','~','~','s','~','~','~','~'],
