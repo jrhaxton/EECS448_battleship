@@ -14,8 +14,9 @@ export class InteractionComponent implements OnInit {
 
 
 }
-function hitOrMiss(row: number, col: number, player: number): boolean 
+function hitOrMiss(row: number, col: unknown, player: number): boolean 
 {
+
  if(player==1)
  {
    for(let i=0; i< 9; i++)
@@ -24,8 +25,18 @@ function hitOrMiss(row: number, col: number, player: number): boolean
      {
        if(i+1==row && j+1==col)
        {
-         //Check to see if the ship is on the space 
-         return true;
+         if(board2[i+1][j+1]=='s')
+         {
+          return true;
+         } 
+         else if(board2[i+1][j+1]=='`')
+         {
+           return false
+         }
+         else if(board2[i+1][j+1]=='x' || board2[i+1][j+1]=='0')
+         {
+          //return an error the resets the attack
+        }
        }
      }
    }
@@ -38,8 +49,18 @@ function hitOrMiss(row: number, col: number, player: number): boolean
     {
       if(i+1==row && j+1==col)
       {
-        //Check to see if the ship is on the space 
-        return true;
+        if(board1[i+1][j+1]=='s')
+         {
+          return true;
+         } 
+         else if(board1[i+1][j+1]=='`')
+         {
+           return false
+         }
+         else if(board1[i+1][j+1]=='x' || board2[i+1][j+1]=='0')
+         {
+          //return an error the resets the attack
+        }
       }
     }
   }
