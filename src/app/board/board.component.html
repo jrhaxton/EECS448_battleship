@@ -22,6 +22,7 @@
 
 <div id="screen">
     <div class="player">
+        <h1>player1</h1>
         <table id="p1-realtime">
             <tr *ngFor="let row of board1_C; let i = index">
                 <td *ngFor="let col of row; let j = index" (change)="win(board1)" (click) = "attack2(i,j)">{{col}}</td>
