@@ -63,44 +63,50 @@ export class BoardComponent implements OnInit {
    }
      
    attack1(row,col){
-    if(this.board2_C[row][col] == 'X' || this.board2_C[row][col] == '0')
-    {
-      this.flip =false;
-    }
-    else
-    {
-      this.flip=true;
-    }
-    if(this.board2[row][col] != 'X' && row != 0 && col != 0){
-      if(this.board2[row][col] == 's'){
-        this.board2_C[row][col] = 'X';
-        this.board2[row][col] = 'X';
-        this.message = "Player one hit";
+     if(row == 0 || col == 0)
+     {
+       alert("Clicked outside the board");
+     }
+     else{
+      if(this.board2_C[row][col] == 'X' || this.board2_C[row][col] == '0')
+      {
+        this.flip =false;
       }
-      else{
-        this.board2_C[row][col] = '0';
-        this.message = "Player one missed";
+      else
+      {
+        this.flip=true;
       }
+      if(this.board2[row][col] != 'X' && row != 0 && col != 0){
+        if(this.board2[row][col] == 's'){
+          this.board2_C[row][col] = 'X';
+          this.board2[row][col] = 'X';
+          this.message = "Player one hit";
+        }
+        else{
+          this.board2_C[row][col] = '0';
+          this.message = "Player one missed";
+        }
+      }
+      if (this.win(this.board2)){
+        this.winner = "Player 1";
+      }
+      if(this.flip==true)
+      {
+        this.flipView();
+        this.isMessage = true; 
+        setTimeout(()=>
+        {
+          this.isMessage = false;}
+          , 3000
+        );
+      }
+      else
+      {
+      this.attack1(row,col);
+      }
+      this.player=2;
+      this.flip=false;
     }
-    if (this.win(this.board2)){
-      this.winner = "Player 1";
-    }
-    if(this.flip==true)
-    {
-       this.flipView();
-       this.isMessage = true; 
-       setTimeout(()=>
-       {
-         this.isMessage = false;}
-         , 5000
-       );
-    }
-    else
-    {
-     this.attack1(row,col);
-    }
-    this.player=2;
-    this.flip=false;
   }
 
   /** Attack2: - Takes care of the attacks from player 2
@@ -116,44 +122,51 @@ export class BoardComponent implements OnInit {
  * @return None
  */
   attack2(row,col){
-    if(this.board1_C[row][col]=='X' || this.board1_C[row][col]== '0')
+    if(row == 0 || col == 0)
     {
-      this.flip =false;
+      alert("Clicked outside the board");
     }
     else
     {
-      this.flip=true;
-    }
-    if(this.board1[row][col] != 'X' && row != 0 && col != 0){
-      if(this.board1[row][col] == 's'){
-        this.board1_C[row][col] = 'X';
-        this.board1[row][col] = 'X';
-        this.message = "Player two hit";
+      if(this.board1_C[row][col]=='X' || this.board1_C[row][col]== '0')
+      {
+        this.flip =false;
       }
-      else{
-        this.board1_C[row][col] = 0;
-        this.message = "Player one missed";
+      else
+      {
+        this.flip=true;
       }
+      if(this.board1[row][col] != 'X' && row != 0 && col != 0){
+        if(this.board1[row][col] == 's'){
+          this.board1_C[row][col] = 'X';
+          this.board1[row][col] = 'X';
+          this.message = "Player two hit";
+        }
+        else{
+          this.board1_C[row][col] = 0;
+          this.message = "Player one missed";
+        }
+      }
+      if (this.win(this.board1)){
+        this.winner = "Player 2";
+      }
+      if(this.flip==true)
+      {
+          this.flipView(); 
+          this.isMessage = true; 
+          setTimeout(()=>
+          {
+            this.isMessage = false;}
+            , 3000
+          );
+      }
+      else
+      {
+        this.attack2(row,col);
+      }
+      this.player=1;
+      this.flip=false;
     }
-    if (this.win(this.board1)){
-      this.winner = "Player 2";
-    }
-    if(this.flip==true)
-    {
-       this.flipView(); 
-       this.isMessage = true; 
-       setTimeout(()=>
-       {
-         this.isMessage = false;}
-         , 5000
-       );
-    }
-    else
-    {
-      this.attack2(row,col);
-    }
-    this.player=1;
-    this.flip=false;
   }
 
   /** playGame: Used to let the program know that all the ships have been placed and the users can now attack each other's board

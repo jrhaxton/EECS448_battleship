@@ -19,14 +19,40 @@
     border: 2px solid;
 }
 
-h1 {
+h1 
+{
     color: white;
+    text-align: center;
 }
 
-p {
+p,h2 
+{
     color: lightblue;
+    text-align: center;
 }
 
-.text-red{
+.text-red
+{
     color: red;
+}
+
+.input
+{
+    text-align: center;
+}
+
+.setupB
+{
+    color: white;
+    margin-left: auto;
+    margin-right: auto;
+    width: 40px;
+    height: 25px;
+}
+
+.setupB table tr td
+{
+    width: 40px;
+    height: 25px;
+    display: flex;
 }
