@@ -28,6 +28,7 @@ export class BoardComponent implements OnInit {
   col: number; // Used to select column to place ship
   row: number = 1; // Used to select row to place ship
   dir: string; // Used to know if the ship is horizontal or vertical
+  valid: boolean; //USed to know if a placement is valid
   validCoords: boolean; // Used to verify that a coordinate is valid
   validNum: boolean; // Used to verify if the number of ship is valid
   player1: string = 'player 1';
@@ -35,9 +36,9 @@ export class BoardComponent implements OnInit {
   flip: boolean=false; //Allows the user to flip the screen if the user did not select a already selected space
   player1_turn: boolean = true;
   player2_turn: boolean = false;
-  play: boolean = false;
-  isMessage: boolean = false;
-  message: string;
+  play: boolean = false; // Used to verify if the user's can play the game
+  isMessage: boolean = false; //Used to check if a message needs to be outputted
+  message: string; // Used to contain a message
 
   /** Constructor: Creates and initilaze the class 
  * @pre None
@@ -81,11 +82,11 @@ export class BoardComponent implements OnInit {
         if(this.board2[row][col] == 's'){
           this.board2_C[row][col] = 'X';
           this.board2[row][col] = 'X';
-          this.message = "Player one hit";
+          this.message = "Player One Hit";
         }
         else{
           this.board2_C[row][col] = '0';
-          this.message = "Player one missed";
+          this.message = "Player One Missed";
         }
       }
       if (this.win(this.board2)){
@@ -141,11 +142,11 @@ export class BoardComponent implements OnInit {
         if(this.board1[row][col] == 's'){
           this.board1_C[row][col] = 'X';
           this.board1[row][col] = 'X';
-          this.message = "Player two hit";
+          this.message = "Player Two Hit";
         }
         else{
           this.board1_C[row][col] = 0;
-          this.message = "Player one missed";
+          this.message = "Player Two Missed";
         }
       }
       if (this.win(this.board1)){
@@ -313,8 +314,13 @@ export class BoardComponent implements OnInit {
         }
       this.updateBoards(); 
       }
+      else if(this.valid == false)
+      {
+        alert(this.message);
+      }
     }
-    else{
+    else
+    {
       alert("Invalid coordinates");
     }
   }
@@ -332,22 +338,34 @@ export class BoardComponent implements OnInit {
   */
   checkPlacements(row:number, col:number, dir:string, board, length:number)
   {
-    let valid = true;
+    this.valid = true;
     for (let i = 0; i < length; i++) {
       if (dir.toUpperCase() == 'H') {
-        if(board[row][col + i] != '~')
+        if ((col + Number(length)) > 9) 
         {
-          valid = false;
+          this.valid = false;
+          this.message = "Invalid coordinates";
+        }
+        else if(board[row][col + i] != '~')
+        {
+          this.valid = false;
+          this.message = "Can't place on top of another ship";
         }
       } 
       else {
-        if(board[row + i][col] != '~')
+        if ((row + Number(length)) > 9) 
         {
-          valid = false;
+          this.valid = false;
+          this.message = "Invalid coordinates";
+        }
+        else if(board[row + i][col] != '~')
+        {
+          this.valid = false;
+          this.message = "Can't place on top of another ship";
         }
       }
     }
-    return(valid);
+    return(this.valid);
   }
 
   /** convertLetter: Used to convert the column letter to a numerical value

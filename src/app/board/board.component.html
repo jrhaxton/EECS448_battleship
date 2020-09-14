@@ -110,13 +110,15 @@
     </table>
 </div>
 
-<div *ngIf="gotShips == true && p1Ships == 0 && p2Ships == 0 && play != true">
-    <h2>All ships have been placed! Press the button to begin playing</h2>
-    <button (click)="playGame()">Play</button>
+<div class= "play">
+    <div *ngIf="gotShips == true && p1Ships == 0 && p2Ships == 0 && play != true">
+        <h2>All ships have been placed! Press the button to begin playing</h2>
+        <button (click)="playGame()">Play</button>
+    </div>
 </div>
 
 <div *ngIf="play == true && player == 1 && gameOver == false && isMessage == false">
-    Player One's turn to shot
+    <h2>Player One's turn to shot</h2>
     <div id="main-screen">
         <div id="player1">
             <h1>Your board</h1>
@@ -140,7 +142,7 @@
     </div>
 </div>
 <div *ngIf="play == true && player == 2 && gameOver == false && isMessage == false">
-    Player two's turn to shot
+    <h2>Player Two's turn to shot</h2>
     <div id="screen">
         <div class="player">
             <h1>Your board</h1>
@@ -162,7 +164,7 @@
 </div>
 
 <div *ngIf = "isMessage == true && gameOver == false">
-    {{message}}
+    <h2>{{message}}</h2>
 </div>
 
     <div *ngIf="gameOver == true">
