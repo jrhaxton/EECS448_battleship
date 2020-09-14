@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 //import { table } from 'console';
 import { AppComponent } from '../app.component';
 import * as $ from 'jquery';
+import { SelectMultipleControlValueAccessor } from '@angular/forms';
 
 @Component({
   selector: 'app-board',
@@ -31,7 +32,7 @@ export class BoardComponent implements OnInit {
   validNum: boolean; // Used to verify if the number of ship is valid
   player1: string = 'player 1';
   player2: string = 'player 2';
-  flip: boolean=false;
+  flip: boolean=false; //Allows the user to flip the screen if the user did not select a already selected space
   player1_turn: boolean = true;
   player2_turn: boolean = false;
   play: boolean = false;
