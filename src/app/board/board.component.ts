@@ -341,7 +341,7 @@ export class BoardComponent implements OnInit {
     this.valid = true;
     for (let i = 0; i < length; i++) {
       if (dir.toUpperCase() == 'H') {
-        if ((col + Number(length)) > 9) 
+        if ((col + Number(length)) > 10) 
         {
           this.valid = false;
           this.message = "Invalid coordinates";
@@ -353,7 +353,7 @@ export class BoardComponent implements OnInit {
         }
       } 
       else {
-        if ((row + Number(length)) > 9) 
+        if ((row + Number(length)) > 10) 
         {
           this.valid = false;
           this.message = "Invalid coordinates";
