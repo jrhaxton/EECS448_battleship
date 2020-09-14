@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "baseUrl": ".",
+        "paths": {"*": ["types/*"]},
+        "target": "ES3",
+        "module": "commonjs",
+        "sourceMap": true,
+        "resolveJsonModule": true,
+        "esModuleInterop": true
+    },
+    "typedocOptions": {
+        "mode": "modules",
+        "out": "docs",
+    }
+}
